@@ -1,0 +1,17 @@
+{
+  "name": "epic-container",
+  "description": "base content block",
+  "main": "epic-container.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.4.0",
+    "paper-material": "PolymerElements/paper-material#^1.0.6",
+    "epic-rx": "epic-elements/epic-rx",
+    "epic-styles": "epic-elements/epic-styles"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  }
+}
