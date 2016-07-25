@@ -31,21 +31,23 @@ Custom property | Description | Default
                 --epic-container-max-width: calc(var(--epic-baseline) * 50);
                 --epic-container-background-color: transparent;
                 --epic-container-text-color: var(--epic-color-charcoal, #333);
-                
+                --epic-container-margin: 0;
+
                 box-sizing: border-box;
                 display: block;
                 position: relative;
                 background-color: transparent;
                 color: var(--epic-container-text-color);
-                margin: 0 0 var(--epic-baseline);
+                margin: var(--epic-container-margin);
                 padding: 0;
             }
 
             :host .box {
+                margin:0;
                 padding: var(--epic-baseline);
                 background-color: var(--epic-container-background-color);
                 color: var(--epic-container-text-color);
-                @apply(--epic-container); 
+                @apply(--epic-container);
             }
 
             :host[contain] .box {
@@ -126,7 +128,7 @@ Custom property | Description | Default
                             reflectToAttribute: true,
                             observer: '_colorChanged'
                         }
-                        
+
                     };
                     this.observers = [];
                     this.listeners = {};
@@ -163,7 +165,7 @@ Custom property | Description | Default
                         this.updateStyles();
                     }
                 }
-            
+
 
             /**
      * Updates text color styles to reflect changes to color property.
