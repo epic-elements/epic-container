@@ -21,8 +21,7 @@ Custom property | Description | Default
 -->
 <dom-module id="epic-container">
     <template>
-        <style include="epic-styles"></style>
-        <style>
+        <style include="epic-styles">
             :host * {
                 box-sizing: border-box;
             }
@@ -44,13 +43,16 @@ Custom property | Description | Default
 
             .box {
                 margin:0;
-                padding: var(--epic-baseline);
+                padding-top: var(--epic-card-container-padding-top, --epic-baseline);
+                padding-left: var(--epic-card-container-padding-left, --epic-baseline);
+                padding-right: var(--epic-card-container-padding-right, --epic-baseline);
+                padding-bottom: var(--epic-card-container-padding-bottom, --epic-baseline);
                 background-color: var(--epic-container-background-color);
                 color: var(--epic-container-text-color);
                 @apply(--epic-container);
             }
 
-            :host[contain] .box {
+            :host[contain] > .box {
                 max-width: var(--epic-container-max-width, none);
                 margin-left: auto;
                 margin-right: auto;
