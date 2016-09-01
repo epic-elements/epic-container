@@ -21,14 +21,18 @@ Custom property | Description | Default
 -->
 <dom-module id="epic-container">
     <template>
-        <style include="epic-styles"></style>
-        <style>
+        <style include="epic-styles">
             :host * {
                 box-sizing: border-box;
             }
 
             :host {
-                @apply(--epic-type-body); --epic-container-max-width: calc(var(--epic-baseline) * 62); --epic-container-background-color: transparent; --epic-container-text-color: var(--epic-color-charcoal, #333); --epic-container-margin: 0; box-sizing: border-box;
+                @apply(--epic-type-body); 
+                --epic-container-max-width: calc(var(--epic-baseline) * 62); 
+                --epic-container-background-color: transparent; 
+                --epic-container-text-color: var(--epic-color-charcoal, #333); 
+                --epic-container-margin: 0; 
+                box-sizing: border-box;
                 display: block;
                 position: relative;
                 background-color: transparent;
@@ -38,13 +42,16 @@ Custom property | Description | Default
             }
 
             :host .box {
-                @apply(--epic-type-body); margin: 0;
-                padding: var(--epic-baseline);
+                margin:0;
+                padding-top: var(--epic-card-container-padding-top, --epic-baseline);
+                padding-left: var(--epic-card-container-padding-left, --epic-baseline);
+                padding-right: var(--epic-card-container-padding-right, --epic-baseline);
+                padding-bottom: var(--epic-card-container-padding-bottom, --epic-baseline);
                 background-color: var(--epic-container-background-color);
                 color: var(--epic-container-text-color);
                 @apply(--epic-container); }
 
-            :host[contain] .box {
+            :host[contain] > .box {
                 max-width: var(--epic-container-max-width, none);
                 margin-left: auto;
                 margin-right: auto;
