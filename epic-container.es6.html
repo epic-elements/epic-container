@@ -1,0 +1,193 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../paper-material/paper-material.html">
+<link rel="import" href="../epic-styles/epic-styles.html">
+<link rel="import" href="../epic-rx/epic-rx.html">
+<!--
+`<epic-container>` is a simple content container with base styling for other epic elements but can be used on its own.
+
+### Styling
+
+`<paper-button>` provides the following custom properties and mixins
+for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--epic-container-max-width` | Maximum width when 'contained' property is of | value of --epic-baseline * 40
+`--epic-container` | Mixin applied to container | `{}`
+`--epic-container-background-color` | Sets the background | transparent
+
+@demo
+-->
+<dom-module id="epic-container">
+    <template>
+        <style include="epic-styles"></style>
+        <style>
+            :host * {
+                box-sizing: border-box;
+            }
+
+            :host {
+                    @apply(--epic-type-body);
+                --epic-container-max-width: calc(var(--epic-baseline) * 62);
+                --epic-container-background-color: transparent;
+                --epic-container-text-color: var(--epic-color-charcoal, #333);
+                --epic-container-margin: 0;
+
+                box-sizing: border-box;
+                display: block;
+                position: relative;
+                background-color: transparent;
+                color: var(--epic-container-text-color);
+                margin: var(--epic-container-margin);
+                padding: 0;
+            }
+
+            :host .box {
+                    @apply(--epic-type-body);
+                margin:0;
+                padding: var(--epic-baseline);
+                background-color: var(--epic-container-background-color);
+                color: var(--epic-container-text-color);
+                @apply(--epic-container);
+            }
+
+            :host[contain] .box {
+                max-width: var(--epic-container-max-width, none);
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            :host[collapse-padding] > .box{
+                    padding: 0;
+            }
+
+            
+        :host[padding="half"] > .box {
+          padding: var(--epic-baseline-down1);
+        }
+
+        :host[padding="2x"] > .box {
+          padding: var(--epic-baseline-up1);
+        }
+
+        :host[padding="3x"] > .box {
+          padding: var(--epic-baseline-up2);
+        }
+
+        :host[padding="4x"] > .box {
+          padding: var(--epic-baseline-up3);
+        }
+
+        :host[padding="5x"] > .box {
+          padding: var(--epic-baseline-up4);
+        }
+
+        :host[padding="6x"] > .box {
+          padding: var(--epic-baseline-up5);
+        }
+        </style>
+        <paper-material id="epicContainerBox" class="box" elevation="[[elevation]]" animated="[[animated]]">
+            <content id="lightDom"></content>
+        </paper-material>
+    </template>
+    <script>
+        (function() {
+            'use strict';
+            class EpicContainer {
+                // Define behaviors with a getter.
+                //     get behaviors() {}
+                beforeRegister() {
+                    this.is = 'epic-container';
+                    this.properties = {
+                        /** Set this to true to bind with paper-material and animate the shadow when setting a new elevation value. */
+                        animated: {
+                            type: Boolean,
+                            value: false,
+                            notify: true,
+                            reflectToAttribute: true
+                        },
+                        /** The z-depth of this element, from 0-5. Setting to 0 will remove the shadow, and each increasing number greater than 0 will be "deeper" than the last. */
+                        elevation: {
+                            type: Number,
+                            value: 1,
+                            notify: true,
+                            reflectToAttribute: true
+                        },
+                        /** Specifies the style treatment of the background. Use image url or named color choices */
+                        background: {
+                            type: String,
+                            value: '',
+                            notify: true,
+                            reflectToAttribute: true,
+                            observer: '_backgroundChanged'
+                        },
+                        /** Limits maximum width of container to a specific value. */
+                        contain: {
+                            type: Boolean,
+                            notify: true
+                        },
+                        /** Sets the text color for the container. */
+                        color: {
+                            type: String,
+                            notify: true,
+                            reflectToAttribute: true,
+                            observer: '_colorChanged'
+                        }
+
+                    };
+                    this.observers = [];
+                    this.listeners = {};
+                }
+                registered() {// collate keyBindings objects from behaviors & element prototype
+                }
+                ready() {}
+                attached() {}
+                detached() {}
+                attributeChanged() {}
+                /**
+     * Checks if `epic-element` needs to use features from `paper-material`.
+     *
+     * @param {Boolean} animated The current value of animated property for `epic-container`.
+     * @param {Number} elevation The current value of elevation property for `epic-container`.
+     * @return {Boolean} True if `paper-material` is needed.
+     */
+                _isUsingMaterial(elevation, animated) {
+                    if (elevation || animated) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+                /**
+     * Updates background styling to reflect changes to background property.
+     *
+     * @param {String} newValue The current value of background.
+     * @param {String} oldValue The previous value background.
+     */
+                _backgroundChanged(newValue, oldValue){
+                    if( newValue && (newValue != oldValue) ){
+                        this.customStyle['--epic-container-background-color'] = `var(--epic-color-${newValue})`;
+                        this.updateStyles();
+                    }
+                }
+
+
+            /**
+     * Updates text color styles to reflect changes to color property.
+     *
+     * @param {String} newValue The current value of background.
+     * @param {String} oldValue The previous value background.
+     */
+                _colorChanged(newValue, oldValue){
+                    if( newValue && (newValue != oldValue) ){
+                        this.customStyle['--epic-container-text-color'] = `var(--epic-color-${newValue})`;
+                        this.updateStyles();
+                    }
+                }
+            }
+            // Register the element using Polymer's constructor.
+            Polymer(EpicContainer);
+        })();
+    </script>
+</dom-module>
